@@ -1,2 +1,4 @@
 sites/yoan
 .DS_Store
+.generated
+.deployed
