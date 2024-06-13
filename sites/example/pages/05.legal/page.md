@@ -1,0 +1,5 @@
+---
+title: 'Legal'
+---
+
+Information here ...

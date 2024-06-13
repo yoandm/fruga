@@ -1,0 +1,7 @@
+{
+	"type" : "local",
+	"config":{
+		"path" : "/path/to/deploy"
+	}
+	
+}
