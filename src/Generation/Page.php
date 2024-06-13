@@ -268,15 +268,20 @@ class Page
 						$nbLevel = substr_count($mdFile['file'], '/');
 						if($nbLevel === $level || $nbLevel == $level + 1){
 							if($relativeLinks){
-								$page->link = '/' . self::$relativePath . ltrim($page->link, '/');
-								if(preg_match('/\/\.\.\/$/', $page->link))
-									$page->link = ltrim($page->link, '/');	
+								$page->link = self::$relativePath . $page->link;
+								
+								$page->link = str_replace('//', '/', $page->link);
+
+								if($page->link === '/')
+									$page->link = './';
 
 							} else {
-								if($page->link === '/')
-									$page->link = '';
-
-								$page->link = $this->configSite->data['url'] . $page->link;
+								if($page->link === '/'){
+									$page->link = $this->configSite->data['url'];
+								}
+								else {
+									$page->link = $this->configSite->data['url'] . '/' . $page->link;
+								}
 							}
 
 							$page->pos = (int) $mdFile['pos'];
