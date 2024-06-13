@@ -1,8 +1,8 @@
 <?php
 
 /*  
-	Copyright (C) 2024		Yoan De Macedo  <mail@yoandm.com>                       
-	web : http://yoandm.com
+    Copyright (C) 2024      Yoan De Macedo  <mail@yoandm.com>                       
+    web : http://yoandm.com
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,6 +23,6 @@ namespace Yoandm\Fruga\Configuration;
 
 class Config
 {
-	public $data = array();
+    public $data = array();
 
 }

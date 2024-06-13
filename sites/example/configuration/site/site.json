@@ -1,7 +1,7 @@
 {
 
-	"name":"My website",
-	"url":"http://localhost",
-	"relativeLinks":1,
-	"cache":1
+    "name":"My website",
+    "url":"http://localhost",
+    "relativeLinks":1,
+    "cache":1
 }

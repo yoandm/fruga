@@ -1,8 +1,8 @@
 <?php
 
 /*  
-	Copyright (C) 2024		Yoan De Macedo  <mail@yoandm.com>                       
-	web : http://yoandm.com
+    Copyright (C) 2024      Yoan De Macedo  <mail@yoandm.com>                       
+    web : http://yoandm.com
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,37 +24,37 @@ namespace Yoandm\Fruga\Deployment;
 class Local
 {
 
-	private $config;
+    private $config;
 
-	public function __construct($config){
-		$this->config = $config;
-	}
+    public function __construct($config){
+        $this->config = $config;
+    }
 
-	public function connect(){
+    public function connect(){
 
-		return 1;
-	}
+        return 1;
+    }
 
-	public function mkdir($dir){
-		return mkdir($dir);
-	}
+    public function mkdir($dir){
+        return mkdir($dir);
+    }
 
-	public function rmdir($dir){
-		return rmdir($dir);
-	}
+    public function rmdir($dir){
+        return rmdir($dir);
+    }
 
-	public function put($src, $dst){
-		return copy($src, $dst);
-	}
+    public function put($src, $dst){
+        return copy($src, $dst);
+    }
 
 
-	public function delete($file){
-		return unlink($file);
-	}
+    public function delete($file){
+        return unlink($file);
+    }
 
-	public function disconnect(){
-		return 1;
-	}
+    public function disconnect(){
+        return 1;
+    }
 
-	
+    
 }

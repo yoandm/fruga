@@ -1,8 +1,8 @@
 <?php
 
 /*  
-	Copyright (C) 2024		Yoan De Macedo  <mail@yoandm.com>                       
-	web : http://yoandm.com
+    Copyright (C) 2024      Yoan De Macedo  <mail@yoandm.com>                       
+    web : http://yoandm.com
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,20 +24,20 @@ namespace Yoandm\Fruga\Generation\Extras;
 class Extra
 {
 
-	protected $basePath;
-	protected $configSite;
-	protected $configExtra;
+    protected $basePath;
+    protected $configSite;
+    protected $configExtra;
 
-	public function __construct($basePath, $configSite, $configExtra){
-		$this->basePath = $basePath;
-		$this->configSite = $configSite;
-		$this->configExtra = $configExtra;
+    public function __construct($basePath, $configSite, $configExtra){
+        $this->basePath = $basePath;
+        $this->configSite = $configSite;
+        $this->configExtra = $configExtra;
 
-	}
+    }
 
-	public function after(){
+    public function after(){
 
-	}
+    }
 
 
 }

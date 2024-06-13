@@ -1,8 +1,8 @@
 <?php
 
 /*  
-	Copyright (C) 2024		Yoan De Macedo  <mail@yoandm.com>                       
-	web : http://yoandm.com
+    Copyright (C) 2024      Yoan De Macedo  <mail@yoandm.com>                       
+    web : http://yoandm.com
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,23 +23,23 @@ namespace Yoandm\Fruga\Generation;
 
 class Cache
 {
-	private $data;
+    private $data;
 
-	public function __contruct(){
-		$this->data = array();
-	}
+    public function __contruct(){
+        $this->data = array();
+    }
 
-	public function get($key){
-		if(isset($this->data[$key])){
-			return $this->data[$key];
-		} else {
-			return false;
-		}
-	}
+    public function get($key){
+        if(isset($this->data[$key])){
+            return $this->data[$key];
+        } else {
+            return false;
+        }
+    }
 
-	public function set($key, $value){
-		$this->data[$key] = $value;
+    public function set($key, $value){
+        $this->data[$key] = $value;
 
-	}
+    }
 
 }

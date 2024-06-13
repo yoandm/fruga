@@ -1,8 +1,8 @@
 <?php
 
 /*  
-	Copyright (C) 2024		Yoan De Macedo  <mail@yoandm.com>                       
-	web : http://yoandm.com
+    Copyright (C) 2024      Yoan De Macedo  <mail@yoandm.com>                       
+    web : http://yoandm.com
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,38 +24,38 @@ namespace Yoandm\Fruga\Generation\Extras;
 class Htaccess extends Extra
 {
 
-	public function __construct($basePath, $configSite, $configExtra){
-		parent::__construct($basePath, $configSite, $configExtra);
-	}
+    public function __construct($basePath, $configSite, $configExtra){
+        parent::__construct($basePath, $configSite, $configExtra);
+    }
 
-	public function after(){
+    public function after(){
 
 
-		$htaccess = '<IfModule mod_rewrite.c>
+        $htaccess = '<IfModule mod_rewrite.c>
 
-	RewriteEngine On' . "\n";
-		if(isset($this->configExtra['removeIndexhtml']) && $this->configExtra['removeIndexhtml']){
-			$htaccess .= '	RewriteRule (.*)index\.html$ /$1 [NS,R=301,L]' . "\n";
-		}
+    RewriteEngine On' . "\n";
+        if(isset($this->configExtra['removeIndexhtml']) && $this->configExtra['removeIndexhtml']){
+            $htaccess .= '  RewriteRule (.*)index\.html$ /$1 [NS,R=301,L]' . "\n";
+        }
 
-		if(isset($this->configExtra['extraLines']) && is_array($this->configExtra['extraLines']) && count($this->configExtra['extraLines'])){
+        if(isset($this->configExtra['extraLines']) && is_array($this->configExtra['extraLines']) && count($this->configExtra['extraLines'])){
 
-			foreach ($this->configExtra['extraLines'] as $extraLine) {
-				$htaccess .= "\t" . $extraLine . "\n";
-			}
+            foreach ($this->configExtra['extraLines'] as $extraLine) {
+                $htaccess .= "\t" . $extraLine . "\n";
+            }
 
-		}
-		$htaccess .= '
+        }
+        $htaccess .= '
 </IfModule>
 ';
 
 
-			file_put_contents($this->basePath . 'output' . DIRECTORY_SEPARATOR . '.htaccess', $htaccess);
+            file_put_contents($this->basePath . 'output' . DIRECTORY_SEPARATOR . '.htaccess', $htaccess);
 
-			$generated['files'][] = array('file' => '.htaccess', 'md5' => md5($htaccess));
+            $generated['files'][] = array('file' => '.htaccess', 'md5' => md5($htaccess));
 
-			return array('generated' => $generated);
-	}
+            return array('generated' => $generated);
+    }
 
 
 }
