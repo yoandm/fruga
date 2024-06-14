@@ -29,19 +29,19 @@ class Collection implements \Iterator
         $this->pages = array();
     }
 
-    public function rewind(){
+    public function rewind() : void{
         reset($this->pages);
     }
-    public function current(){
+    public function current() : mixed{
         return current($this->pages);
     }
-    public function key(){
+    public function key() : mixed{
         $return = key($this->pages);
     }
-    public function next(){
-        return next($this->pages);
+    public function next() : void{
+        next($this->pages);
     }
-    public function valid(){
+    public function valid() : bool{
         $key = key($this->pages);
         return ($key !== null && $key !== false);
      }
