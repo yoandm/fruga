@@ -58,15 +58,14 @@ class Deployer
 
         if(class_exists($class)){
             $obj = new $class($this->config);
-            $obj->connect();
-
-            if(! isset($this->config->data['path']) || empty($this->config->data['path'])){
+            if(! $obj->connect()){
                 return 0;
             }
 
+
+
             $history = array();
             $outputPathSrc = self::BASE_DIR . '/sites/' . $this->siteName . self::DS . 'output';
-            $outputPathDst = $this->config->data['path'];
 
             $deployed = array('dirs' => array(), 'files' => array());
 
@@ -94,7 +93,7 @@ class Deployer
             foreach($deployed['files'] as $f){
                 if(! isset($files[$f['file']])){
                     echo 'Delete ' . $f['file'] . "\n";
-                    $obj->delete($outputPathDst . DIRECTORY_SEPARATOR . $f['file']);
+                    $obj->delete($f['file']);
                 }
 
             }
@@ -102,7 +101,7 @@ class Deployer
             foreach(array_reverse($deployed['dirs']) as $dir){
                 if(! in_array($dir, $generated['dirs'])){
                     echo 'Delete ' . $dir . "\n";
-                    $obj->rmdir($outputPathDst . DIRECTORY_SEPARATOR . $dir);
+                    $obj->rmdir($dir);
                 }
             }
 
@@ -111,7 +110,7 @@ class Deployer
             foreach($generated['dirs'] as $dir){
 
                 if(! in_array($dir, $deployed['dirs'])){
-                    $obj->mkdir($outputPathDst  . DIRECTORY_SEPARATOR . $dir);
+                    $obj->mkdir($dir);
                     echo 'Create ' . $dir . "\n";
                     $deployed['dirs'][] = $dir;
                 }
@@ -135,7 +134,7 @@ class Deployer
                     else
                         echo 'Update ' . $f['file'] . "\n";
 
-                    $obj->put($outputPathSrc . DIRECTORY_SEPARATOR . $f['file'], $outputPathDst . DIRECTORY_SEPARATOR . $f['file']);
+                    $obj->put($outputPathSrc . DIRECTORY_SEPARATOR . $f['file'], $f['file']);
                     
                     $newDeployed['files'][] = array('file' => $f['file'], 'md5' => $f['md5']);
 

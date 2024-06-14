@@ -21,10 +21,11 @@
 
 namespace Yoandm\Fruga\Deployment;
 
-class Local
+class Ftp
 {
 
     private $config;
+    private $handle;
 
     public function __construct($config){
         $this->config = $config;
@@ -32,33 +33,57 @@ class Local
 
     public function connect(){
 
-        if(! isset($this->config->data['path']) || empty($this->config->data['path'])){
+        if(! isset($this->config->data['host']) || ! isset($this->config->data['login']) || ! isset($this->config->data['password'])){
             return 0;
         }
 
+        $this->handle = ftp_connect($this->config->data['host']);
+        $login_result = ftp_login($this->handle, $this->config->data['login'], $this->config->data['password']);
+
+        if ((!$this->handle) || (!$login_result)) {
+            return 0;
+        }
+
+        if(isset($this->config->data['path']) && ! empty($this->config->data['path'])){
+            if(! ftp_chdir($this->handle, $this->config->data['path'])){
+                return 0;
+            }
+        }
+
+        if(isset($this->config->data['passive']) && (int) $this->config->data['passive']){
+            if(! ftp_pasv($this->handle, true)){
+                return 0;
+            }
+        }
+                   
         return 1;
     }
 
     public function mkdir($dir){
-        return mkdir($this->config->data['path'] . DIRECTORY_SEPARATOR . $dir);
+        if(! ftp_mkdir($this->handle, $dir)){
+            return 0;
+        }
     }
 
     public function rmdir($dir){
-        return rmdir($this->config->data['path'] . DIRECTORY_SEPARATOR . $dir);
+        if(! ftp_rmdir($this->handle, $dir)){
+            return 0;
+        } 
     }
 
     public function put($src, $dst){
-        return copy($src, $this->config->data['path'] . DIRECTORY_SEPARATOR . $dst);
+         if(! ftp_put($this->handle, $dst, $src)){
+            return 0;
+        } 
     }
 
-
     public function delete($file){
-        return unlink($this->config->data['path'] . DIRECTORY_SEPARATOR . $file);
+        if(! ftp_delete($this->handle, $file)){
+            return 0;
+        }
     }
 
     public function disconnect(){
-        return 1;
+        ftp_close($this->handle);
     }
-
-    
 }
