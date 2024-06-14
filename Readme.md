@@ -3,6 +3,7 @@
 Fruga is a static website generator.
 
 I've to write some documentation.
+I need to implement an error management for templates.
 
 You can try to generate a website using an example website :
 
