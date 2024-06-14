@@ -37,7 +37,13 @@ class Ftp
             return 0;
         }
 
-        $this->handle = ftp_connect($this->config->data['host']);
+        $port = 21;
+
+        if($this->config->data['port'] && (int) $this->config->data['port']){
+            $port = $this->config->data['port'];
+        }
+
+        $this->handle = ftp_connect($this->config->data['host'], $port);
         $login_result = ftp_login($this->handle, $this->config->data['login'], $this->config->data['password']);
 
         if ((!$this->handle) || (!$login_result)) {
