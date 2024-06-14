@@ -68,13 +68,13 @@ class Deployer
             $outputPathSrc = self::BASE_DIR . '/sites/' . $this->siteName . self::DS . 'output';
             $outputPathDst = $this->config->data['path'];
 
+            $deployed = array('dirs' => array(), 'files' => array());
+
             if(! file_exists(self::BASE_DIR . '/sites/' . $this->siteName . self::DS . '.deployed')){
                 mkdir(self::BASE_DIR . '/sites/' . $this->siteName . self::DS . '.deployed');
             } else { // Load last deployed files history
                 if(file_exists(self::BASE_DIR . '/sites/' . $this->siteName . self::DS . '.deployed' . self::DS . $this->profile . '.json')){
                     $deployed = json_decode(file_get_contents(self::BASE_DIR . '/sites/' . $this->siteName . self::DS . '.deployed' . self::DS . $this->profile . '.json'), 1);
-                } else {
-                    $deployed = array('dirs' => array(), 'files' => array());
                 }
             }
 
