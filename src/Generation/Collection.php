@@ -25,7 +25,7 @@ class Collection implements \Iterator
 {
     private $pages;
 
-    public function __contruct(){
+    public function __construct(){
         $this->pages = array();
     }
 

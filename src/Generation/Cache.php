@@ -25,7 +25,7 @@ class Cache
 {
     private $data;
 
-    public function __contruct(){
+    public function __construct(){
         $this->data = array();
     }
 
