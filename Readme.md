@@ -10,10 +10,10 @@ php fruga.php generate example
 
 HTML result will be in sites/example/output
 
-It's a very simple theme. Take a look at sites/example/themes/simple/. 
+It's a very simple theme. Take a look at sites/example/themes/simple/.
 You'll easily understand how to make a more sophisticated theme.
 
 
-Yoan De Macedo
-yoandemacedo.com
+Yoan De Macedo  
+yoandemacedo.com  
 mail@yoandm.com            
