@@ -1,4 +1,6 @@
 sites/yoan
+sites/example/output
 .DS_Store
 .generated
 .deployed
+
