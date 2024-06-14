@@ -15,5 +15,4 @@ You'll easily understand how to make a more sophisticated theme.
 
 
 Yoan De Macedo  
-yoandemacedo.com  
-mail@yoandm.com            
+yoandemacedo.com
