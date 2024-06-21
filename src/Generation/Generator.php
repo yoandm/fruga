@@ -106,6 +106,8 @@ class Generator
 
                     try {
 
+                        $error->currentTpl = 'themes' . self::DS . $this->configTheme->data['name'] . self::DS . 'templates' . self::DS . $res[1] . '.php';
+
                         set_error_handler(array($error, 'catch'));
 
                         ob_start();

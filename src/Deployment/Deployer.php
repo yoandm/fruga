@@ -95,7 +95,7 @@ class Deployer
                     if($obj->delete($f['file'])){
                         echo 'Delete ' . $f['file'] . "\n";
                     } else {
-                        $newDeployed['files'][] = array('file' => $f['file'], 'md5' => $f['md5']);
+                        echo 'Error deleting ' . $f['file'] . "\n";
                     }     
                 }
 
@@ -106,7 +106,7 @@ class Deployer
                     if($obj->rmdir($dir)){
                       echo 'Delete ' . $dir . "\n";  
                     } else {
-                        $newDeployed['dirs'][] = $dir;
+                        echo 'Error deleting delete ' . $dir . "\n";
                     }        
                 }
             }
