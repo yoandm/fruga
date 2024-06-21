@@ -92,16 +92,22 @@ class Deployer
 
             foreach($deployed['files'] as $f){
                 if(! isset($files[$f['file']])){
-                    echo 'Delete ' . $f['file'] . "\n";
-                    $obj->delete($f['file']);
+                    if($obj->delete($f['file'])){
+                        echo 'Delete ' . $f['file'] . "\n";
+                    } else {
+                        $newDeployed['files'][] = array('file' => $f['file'], 'md5' => $f['md5']);
+                    }     
                 }
 
             }
             
             foreach(array_reverse($deployed['dirs']) as $dir){
                 if(! in_array($dir, $generated['dirs'])){
-                    echo 'Delete ' . $dir . "\n";
-                    $obj->rmdir($dir);
+                    if($obj->rmdir($dir)){
+                      echo 'Delete ' . $dir . "\n";  
+                    } else {
+                        $newDeployed['dirs'][] = $dir;
+                    }        
                 }
             }
 
@@ -110,9 +116,11 @@ class Deployer
             foreach($generated['dirs'] as $dir){
 
                 if(! in_array($dir, $deployed['dirs'])){
-                    $obj->mkdir($dir);
-                    echo 'Create ' . $dir . "\n";
-                    $deployed['dirs'][] = $dir;
+                    if($obj->mkdir($dir)){
+                        echo 'Create ' . $dir . "\n";
+                        $deployed['dirs'][] = $dir;                       
+                    }
+
                 }
 
                 $newDeployed['dirs'][] = $dir;
@@ -129,14 +137,16 @@ class Deployer
             foreach($generated['files'] as $f){
 
                 if(! isset($files[$f['file']]) || $f['md5'] !==  $files[$f['file']]){
-                    if( ! isset($files[$f['file']]))
-                        echo 'Create ' . $f['file'] . "\n";
-                    else
-                        echo 'Update ' . $f['file'] . "\n";
 
-                    $obj->put($outputPathSrc . DIRECTORY_SEPARATOR . $f['file'], $f['file']);
+                    if($obj->put($outputPathSrc . DIRECTORY_SEPARATOR . $f['file'], $f['file'])){
+                        if( ! isset($files[$f['file']]))
+                            echo 'Create ' . $f['file'] . "\n";
+                        else
+                            echo 'Update ' . $f['file'] . "\n";
+
+                        $newDeployed['files'][] = array('file' => $f['file'], 'md5' => $f['md5']);
+                    }
                     
-                    $newDeployed['files'][] = array('file' => $f['file'], 'md5' => $f['md5']);
 
                 } else {
                     $newDeployed['files'][] = array('file' => $f['file'], 'md5' => $files[$f['file']]);

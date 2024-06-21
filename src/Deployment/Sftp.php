@@ -72,24 +72,32 @@ class Sftp
         if(! ssh2_sftp_mkdir($this->sftp, $this->path . $dir)){
             return 0;
         }
+
+        return 1;
     }
 
     public function rmdir($dir){
         if(! ssh2_sftp_rmdir($this->sftp, $this->path . $dir)){
             return 0;
         }
+
+        return 1;
     }
 
     public function put($src, $dst){
          if(! ssh2_scp_send($this->handle, $src, $this->path . $dst)){
             return 0;
         }
+
+        return 1;
     }
 
     public function delete($file){
         if(! ssh2_sftp_unlink($this->sftp, $this->path . $file)){
             return 0;
         }
+
+        return 1;
     }
 
     public function disconnect(){

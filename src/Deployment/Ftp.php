@@ -69,24 +69,32 @@ class Ftp
         if(! ftp_mkdir($this->handle, $dir)){
             return 0;
         }
+
+        return 1;
     }
 
     public function rmdir($dir){
         if(! ftp_rmdir($this->handle, $dir)){
             return 0;
         } 
+
+        return 1;
     }
 
     public function put($src, $dst){
          if(! ftp_put($this->handle, $dst, $src)){
             return 0;
         } 
+
+        return 1;
     }
 
     public function delete($file){
         if(! ftp_delete($this->handle, $file)){
             return 0;
         }
+
+        return 1;
     }
 
     public function disconnect(){
