@@ -47,6 +47,12 @@ class Generator
 
     public function generate(){
 
+        $error = new Error();
+        $reportingLevel = error_reporting();
+
+        register_shutdown_function(array($error, 'shutdown'));
+        error_reporting(0);
+
         if(! file_exists(self::BASE_DIR . self::DS . 'sites' . self::DS . $this->siteName)){
             return 0;
         }
@@ -98,9 +104,20 @@ class Generator
 
                     $nameFile = preg_match('/(.*).md/', $mdFile, $res);
 
-                    ob_start();
-                    require(self::BASE_DIR . self::DS . 'sites' . self::DS . $this->siteName . self::DS . 'themes' . self::DS . $this->configTheme->data['name'] . self::DS . 'templates' . self::DS . $res[1] . '.php');
-                    $content = ob_get_clean();
+                    try {
+
+                        set_error_handler(array($error, 'catch'));
+
+                        ob_start();
+                        require(self::BASE_DIR . self::DS . 'sites' . self::DS . $this->siteName . self::DS . 'themes' . self::DS . $this->configTheme->data['name'] . self::DS . 'templates' . self::DS . $res[1] . '.php');
+
+                    } catch(Exception $e){
+                        echo $throwable->getMessage() . "\n";
+                    }  finally {
+                        $content = ob_get_clean();
+                        restore_error_handler();
+                    }
+
 
                     file_put_contents(self::BASE_DIR . self::DS  . 'sites' . self::DS  . $this->siteName . self::DS . 'output' . self::DS  . $page->get('link') . 'index.html', $content);
 
@@ -115,6 +132,8 @@ class Generator
             }
 
         }
+
+        error_reporting($reportingLevel);
 
         $res = File::copyContent(self::BASE_DIR . self::DS . 'sites' . self::DS . $this->siteName . self::DS . 'themes' . self::DS . $this->configTheme->data['name'], self::BASE_DIR . self::DS . 'sites' . self::DS . $this->siteName . self::DS . 'output', array('templates'));
 
