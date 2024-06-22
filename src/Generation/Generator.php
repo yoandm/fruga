@@ -159,6 +159,9 @@ class Generator
         $res = File::copyContent(self::BASE_DIR . self::DS . 'sites' . self::DS . $this->siteName . self::DS . 'medias', self::BASE_DIR . self::DS . 'sites' . self::DS . $this->siteName . self::DS . 'output' . self::DS . 'medias');
 
         if(isset($res['dirs'])){
+            for($i = 0; $i < count($res['dirs']); $i++){
+                $res['dirs'][$i] = str_replace(self::BASE_DIR . self::DS . 'sites' . self::DS . $this->siteName . self::DS . 'output' . self::DS, '', $res['dirs'][$i]);
+            }
             $generated['dirs'] = array_merge($generated['dirs'], $res['dirs']);
         }
 
