@@ -1,4 +1,5 @@
-sites/yoan
+sites/
+!sites/example
 sites/example/output
 .DS_Store
 .generated
