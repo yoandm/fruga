@@ -43,7 +43,12 @@ class Ftp
             $port = $this->config->data['port'];
         }
 
-        $this->handle = ftp_connect($this->config->data['host'], $port);
+        if(! isset($this->config->data['ssl']) || ! $this->config->data['ssl']){
+          $this->handle = ftp_connect($this->config->data['host'], $port);  
+        } else {
+          $this->handle = ftp_ssl_connect($this->config->data['host'], $port);
+        }
+        
         $login_result = ftp_login($this->handle, $this->config->data['login'], $this->config->data['password']);
 
         if ((!$this->handle) || (!$login_result)) {
