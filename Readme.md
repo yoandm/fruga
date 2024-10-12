@@ -14,4 +14,4 @@ You'll easily understand how to make a more sophisticated theme.
 PHP 8.x needed
 
 Yoan De Macedo  
-yoandemacedo.com
+yoandemacedo.com/fruga
