@@ -2,8 +2,6 @@
 
 Fruga is a static website generator.
 
-I've to write some documentation.
-
 You can try to generate a website using an example website :
 
 php fruga.php generate example
