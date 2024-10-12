@@ -138,14 +138,18 @@ class Deployer
 
                 if(! isset($files[$f['file']]) || $f['md5'] !==  $files[$f['file']]){
 
-                    if($obj->put($outputPathSrc . DIRECTORY_SEPARATOR . $f['file'], $f['file'])){
-                        if( ! isset($files[$f['file']]))
-                            echo 'Create ' . $f['file'] . "\n";
-                        else
-                            echo 'Update ' . $f['file'] . "\n";
+                    for($try = 0; $try < 3; $try ++){ // Sometimes we can have a probleme with put (FTP ssl for example)
+                        if($obj->put($outputPathSrc . DIRECTORY_SEPARATOR . $f['file'], $f['file'])){
+                            if( ! isset($files[$f['file']]))
+                                echo 'Create ' . $f['file'] . "\n";
+                            else
+                                echo 'Update ' . $f['file'] . "\n";
 
-                        $newDeployed['files'][] = array('file' => $f['file'], 'md5' => $f['md5']);
+                            $newDeployed['files'][] = array('file' => $f['file'], 'md5' => $f['md5']);
+                            break;
+                        }                        
                     }
+
                     
 
                 } else {

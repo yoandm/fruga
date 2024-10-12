@@ -87,7 +87,7 @@ class Ftp
     }
 
     public function put($src, $dst){
-         if(! ftp_put($this->handle, $dst, $src)){
+         if(! @ftp_put($this->handle, $dst, $src)){
             return 0;
         } 
 
