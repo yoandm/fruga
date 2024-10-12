@@ -20,6 +20,7 @@
 */
 
 namespace Yoandm\Fruga\Deployment;
+use Yoandm\Fruga\Tools\Misc;
 
 class Ftp
 {
@@ -35,6 +36,10 @@ class Ftp
 
         if(! isset($this->config->data['host']) || ! isset($this->config->data['login']) || ! isset($this->config->data['password'])){
             return 0;
+        }
+
+        if(! isset($this->config->data['password']) || empty($this->config->data['password'])){
+            $this->config->data['password'] = Misc::readPassword('FTP Password : ');
         }
 
         $port = 21;

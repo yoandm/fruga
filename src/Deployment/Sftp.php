@@ -20,6 +20,7 @@
 */
 
 namespace Yoandm\Fruga\Deployment;
+use Yoandm\Fruga\Tools\Misc;
 
 class Sftp
 {
@@ -35,8 +36,12 @@ class Sftp
 
     public function connect(){
 
-        if(! isset($this->config->data['host']) || ! isset($this->config->data['login']) || ! isset($this->config->data['password'])){
+        if(! isset($this->config->data['host']) || ! isset($this->config->data['login'])){
             return 0;
+        }
+
+        if(! isset($this->config->data['password']) || empty($this->config->data['password'])){
+            $this->config->data['password'] = Misc::readPassword('SFTP Password : ');
         }
 
         $port = 22;
