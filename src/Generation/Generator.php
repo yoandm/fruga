@@ -43,6 +43,7 @@ class Generator
         
         $this->configSite->data = json_decode(file_get_contents(self::BASE_DIR . self::DS . 'sites' . self::DS . $this->siteName . self::DS . 'configuration' . self::DS . 'site' . self::DS . $profile . '.json'), 1);
         $this->configTheme->data =  json_decode(file_get_contents(self::BASE_DIR . self::DS . 'sites' . self::DS . $this->siteName . self::DS . 'configuration' . self::DS . 'theme' . self::DS . 'theme.json'), 1);
+        $this->configSite->data['theme'] = $this->configTheme->data['name'];
     }
 
     public function generate(){
@@ -121,11 +122,11 @@ class Generator
                     }
 
 
-                    file_put_contents(self::BASE_DIR . self::DS  . 'sites' . self::DS  . $this->siteName . self::DS . 'output' . self::DS  . $page->get('link') . 'index.html', $content);
+                    file_put_contents(self::BASE_DIR . self::DS  . 'sites' . self::DS  . $this->siteName . self::DS . 'output' . self::DS  . $page->get('link') . 'index.' . $page->type, $content);
 
-                    $link = rtrim($page->get('link'), '/\\') . self::DS . 'index.html';
-                    if($link === '/index.html')
-                        $link = 'index.html';
+                    $link = rtrim($page->get('link'), '/\\') . self::DS . 'index.' . $page->type;
+                    if($link === '/index.' . $page->type)
+                        $link = 'index.' . $page->type;
                     
                     $generated['files'][] = array('file' => $link, 'md5' => md5($content));
 

@@ -35,6 +35,8 @@ class Page
     private $date;
     private $pos;
 
+    public $type = 'html';
+
     public $children;
 
     private $path;
@@ -366,5 +368,13 @@ class Page
         }
 
         return 0;
+    }
+
+    public function addPHPCode($file){
+        if(file_exists($this->path . DIRECTORY_SEPARATOR . '../' . 'themes' . DIRECTORY_SEPARATOR . $this->configSite->data['theme'] . DIRECTORY_SEPARATOR . 'templates' . $file)){
+            echo file_get_contents($this->path . DIRECTORY_SEPARATOR . '../' . 'themes' . DIRECTORY_SEPARATOR . $this->configSite->data['theme'] . DIRECTORY_SEPARATOR . 'templates' . $file);
+
+            $this->type = 'php';
+        }
     }   
 }
