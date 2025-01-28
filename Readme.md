@@ -11,6 +11,8 @@ HTML result will be in sites/example/output
 It's a very simple theme. Take a look at sites/example/themes/simple/.
 You'll easily understand how to make a more sophisticated theme.
 
+Documentation : https://yoandemacedo.com/fruga/doc/
+
 PHP 8.x needed
 
 Yoan De Macedo  
