@@ -97,6 +97,10 @@ class Generator
 
                 $page = new Page($baseDir, $this->configSite);
                 if($page->fetch($dir . self::DS . $mdFile)){
+                    
+                    if(! $page->get('published')){
+                        continue;
+                    }
 
                     if(! empty($dir)){
                         mkdir(self::BASE_DIR . self::DS  . 'sites' . self::DS  . $this->siteName . self::DS . 'output' . self::DS  . $page->get('link'));

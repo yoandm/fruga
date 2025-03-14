@@ -32,6 +32,7 @@ class Page
     private $content;
     private $slug;
     private $link;
+    private $published;
     private $date;
     private $pos;
 
@@ -52,6 +53,7 @@ class Page
         $this->configSite = $configSite;
         $this->header = array();
         $this->children = array();
+        $this->published = true;
 
         if(! self::$cachePage){
             self::$cachePage = new Cache();
@@ -83,7 +85,10 @@ class Page
                     break;  
             case 'pos': 
                     return $this->pos;
-                    break;                                                      
+                    break; 
+            case 'published': 
+                    return $this->published;
+                    break;                                                                          
             default:
                     if(isset($this->header[$key])){
                         return $this->header[$key];
@@ -108,6 +113,7 @@ class Page
                 $this->content = $res['content'];
                 $this->slug = $res['slug'];
                 $this->link = $res['link'];
+                $this->published = $res['published'];
                 $this->date = $res['date'];
                 $this->header = $res['header'];
 
@@ -144,7 +150,11 @@ class Page
 
                     case 'slug':
                         $this->slug = trim($cut[2], '\'');
-                        break;  
+                        break;
+
+                    case 'published':
+                        $this->published = trim($cut[2], '\'') === 'false' ? false : true;
+                        break;                
 
                     default: 
                         $this->header[$cut[1]] = trim($cut[2], '\'');
@@ -189,6 +199,7 @@ class Page
                 'slug' => $this->slug,
                 'link' => $this->link,
                 'date' => $this->date,              
+                'published' => $this->published,              
                 'header' => $this->header
 
             );
@@ -226,7 +237,12 @@ class Page
                         $pos = $search[1]; 
                     }
 
-                    $mdFiles[] = array('file' => $res, 'path' => $cleanDir, 'pos' => $pos);                 
+                    $page = new Page($this->path, $this->configSite);
+                    $page->fetch($res);
+
+                    if($page->get('published')) {
+                        $mdFiles[] = array('file' => $res, 'path' => $cleanDir, 'pos' => $pos);
+                    }                
                 }
 
             
