@@ -19,7 +19,6 @@
 
 */
     require 'autoload.php';
-    require 'vendor/autoload.php';
 
     use Yoandm\Fruga\Generation\Generator;
     use Yoandm\Fruga\Deployment\Deployer;
